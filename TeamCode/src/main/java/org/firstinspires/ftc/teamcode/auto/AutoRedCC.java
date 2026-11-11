@@ -1,3 +1,5 @@
+package org.firstinspires.ftc.teamcode.auto;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,8 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+// Moving:
 @Autonomous
-public class AutoBlueCC extends OpMode {
+public class AutoRedCC extends OpMode {
     DcMotor FL;
     DcMotor FR;
     DcMotor BL;
@@ -22,9 +25,10 @@ public class AutoBlueCC extends OpMode {
 
     GoBildaPinpointDriver pinpoint;
 
-    int Position = 2; //Based on starting Position: 1 is Red, 2 is Blue
+    int Position = 1; //Based on starting Position: 1 is Red, 2 is Blue
 
     int Step = 1;
+
 
     public void init(){
         DcMotor FL = hardwareMap.get(DcMotor.class, "FL");
@@ -36,6 +40,7 @@ public class AutoBlueCC extends OpMode {
 
         ElapsedTime runtime = new ElapsedTime();
 
+        //change offsets: where odo pods are in relation to bot center
 
         GoBildaPinpointDriver pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         pinpoint.setOffsets(0,17.5, DistanceUnit.CM);
@@ -43,97 +48,94 @@ public class AutoBlueCC extends OpMode {
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
         pinpoint.resetPosAndIMU();
-        if (Position == 2) {
-            Pose2D startingPosition = new Pose2D(DistanceUnit.CM, 330, 200, AngleUnit.RADIANS, 0);
+        if (Position == 1){
+            Pose2D startingPosition = new Pose2D(DistanceUnit.CM, 150, 330, AngleUnit.RADIANS, 0);
         }
 
     }
 
     public void AutoDriveShootPark(){
-        double X = pinpoint.getPosX(DistanceUnit.CM);
         double Y = pinpoint.getPosY(DistanceUnit.CM);
-        double heading = pinpoint.getHeading(AngleUnit.RADIANS);
+        double X = pinpoint.getPosX(DistanceUnit.CM);
 
-        if (Position == 2) {
+        if (Position == 1) {
             if (Step == 1) {
-                while (X != 270) {
+                while (Y != 270) {
                     FL.setPower(0.5);
                     FR.setPower(0.5);
                     BL.setPower(0.5);
                     BR.setPower(0.5);}
 
-                if (X == 270) {
+                if (Y == 270) {
+                    FL.setPower(0);
+                    FR.setPower(0);
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    Step += 1;}}
+
+            if (Step == 2) {
+                while (X != 90) {
+                    FL.setPower(0.5);
+                    FR.setPower(-0.5);
+                    BL.setPower(-0.5);
+                    BR.setPower(0.5);}
+                if (X == 90) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
                     BR.setPower(0);
                     Step += 1;} }
 
-            if (Step == 2) {
-                while (Y != 280) {
-                    FL.setPower(0.5);
-                    FR.setPower(-0.5);
-                    BL.setPower(-0.5);
-                    BR.setPower(0.5);}
-
-                if (Y == 280) {
-                    FL.setPower(0);
-                    FR.setPower(0);
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    Step += 1;}}
-
             if (Step == 3) {
-                while (X != 210) {
+                while (Y != 90) {
                     FL.setPower(0.5);
                     FR.setPower(0.5);
                     BL.setPower(0.5);
                     BR.setPower(0.5);}
 
-                if (X == 210) {
+                if (Y == 90) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
                     BR.setPower(0);
-                    Step += 1;}}
+                    Step += 1;}
+            }
 
             if (Step == 4) {
-                while (heading != Math.toRadians(270)) {
+                while (X != 150) {
                     FL.setPower(-0.5);
                     FR.setPower(0.5);
-                    BL.setPower(-0.5);
-                    BR.setPower(0.5);}
+                    BL.setPower(0.5);
+                    BR.setPower(-0.5);}
 
-                if (heading == Math.toRadians(270)) {
+                if (X == 150) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
                     BR.setPower(0);
                     runtime.reset();
                     Step += 1;
-                }}
+                }
+            }
 
             if (Step == 5) {
                 while (runtime.seconds() <= 7) {
                     Flywheel.setPower(1);
-                    intakeServo.setPower(.25);
-                }
+                    intakeServo.setPower(.25);}
 
                 if (runtime.seconds() >= 7) {
                     Flywheel.setPower(0);
                     intakeServo.setPower(0);
-                    Step += 1;
-                }
-            }
+                    Step += 1;}}
 
             if (Step == 6) {
-                while (X != 270) {
+                while (X != 90) {
                     FL.setPower(0.5);
                     FR.setPower(-0.5);
                     BL.setPower(-0.5);
                     BR.setPower(0.5);}
 
-                if (X == 270) {
+                if (X == 90) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
@@ -141,13 +143,13 @@ public class AutoBlueCC extends OpMode {
                     Step += 1;}}
 
             if (Step == 7) {
-                while (Y != 100) {
+                while (Y != 270) {
                     FL.setPower(-0.5);
                     FR.setPower(-0.5);
                     BL.setPower(-0.5);
                     BR.setPower(-0.5);}
 
-                if (Y == 100) {
+                if (Y == 270) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
@@ -155,20 +157,21 @@ public class AutoBlueCC extends OpMode {
                     Step += 1;}}
 
             if (Step == 8) {
-                while (X != 330) {
+                while (X != 30) {
                     FL.setPower(0.5);
                     FR.setPower(-0.5);
                     BL.setPower(-0.5);
                     BR.setPower(0.5);}
 
-                if (X == 330) {
+                if (X == 30) {
                     FL.setPower(0);
                     FR.setPower(0);
                     BL.setPower(0);
                     BR.setPower(0);
-                    Step += 1;}}
-        }
-    }
+                    Step += 1;}
+
+            }
+        } }
 
     public void loop(){
         AutoDriveShootPark();
