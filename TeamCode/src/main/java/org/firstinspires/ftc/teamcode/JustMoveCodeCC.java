@@ -1,11 +1,10 @@
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Moving:
 @TeleOp
-public class MoveCodeCC extends OpMode {
+public class JustMoveCodeCC extends OpMode {
     DcMotor FL;
     DcMotor FR;
     DcMotor BL;
