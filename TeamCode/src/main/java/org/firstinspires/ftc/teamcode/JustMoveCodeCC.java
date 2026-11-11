@@ -30,10 +30,10 @@ public class JustMoveCodeCC extends OpMode {
  //   boolean Right_Bumper;
 
     public void init(){
-        DcMotor FL = hardwareMap.get(DcMotor.class, "FL");
-        DcMotor FR = hardwareMap.get(DcMotor.class, "FR");
-        DcMotor BL = hardwareMap.get(DcMotor.class, "BL");
-        DcMotor BR = hardwareMap.get(DcMotor.class, "BR");
+         FL = hardwareMap.get(DcMotor.class, "FL");
+         FR = hardwareMap.get(DcMotor.class, "FR");
+         BL = hardwareMap.get(DcMotor.class, "BL");
+         BR = hardwareMap.get(DcMotor.class, "BR");
 
     //    CRServo intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
 
