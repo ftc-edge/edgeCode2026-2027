@@ -50,6 +50,15 @@ public class JustMoveCodeCC extends OpMode {
         float LeftStick_x = gamepad1.left_stick_x;
         float LeftStick_y = gamepad1.left_stick_y;
         float RightStick_x = gamepad1.right_stick_x;
+
+        /*
+        I see what you're thinking with this, but this would make the robot not use its motors. Computers don't use logic,
+        they just use math. What you're trying to do here is make these variables a stand in for the gamepad variation.
+        What would actually happen is that each of these would get set to 0 forever. Any time "=" or "==" is used, it's
+        equal to the VALUE OF the variable on the other side of the sign, not the variable itself. Does that make sense?
+        I personally avoid these kinds of variables since I think they're redundant, but it's up to yall if you want to use them.
+        Just be careful about these kinds of things, two variables that are supposed to represent the same thing can get tricky.
+         */
 //        float LeftTrigger = gamepad1.left_trigger;
 //        boolean A = gamepad1.a;
 //        boolean B = gamepad1.b;

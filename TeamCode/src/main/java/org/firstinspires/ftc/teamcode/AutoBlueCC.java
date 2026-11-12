@@ -170,6 +170,12 @@ public class AutoBlueCC extends OpMode {
         }
     }
 
+    /*
+    * I like your thinking here but this would in practice not work. Computers have set refresh times in which they update data
+    * and check it. Sometimes things happen in between those cycles that can cause the numbers to whiff on exact checks like these.
+    * Best practice is to use a range to reduce issues like this. i.e if x >= 330 && x<=340
+    * */
+
     public void loop(){
         AutoDriveShootPark();
         pinpoint.update();
