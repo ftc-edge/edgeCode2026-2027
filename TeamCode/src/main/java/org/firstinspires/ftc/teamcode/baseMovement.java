@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
 public class baseMovement extends OpMode {
@@ -15,6 +16,10 @@ public class baseMovement extends OpMode {
     @Override
     public void init()
     {
+        init(hardwareMap);
+    }
+
+    public void init(HardwareMap hardwareMap){
         FRmotor = hardwareMap.get(DcMotor.class, "FRmotor");
         FRmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -39,9 +44,6 @@ public class baseMovement extends OpMode {
         BLmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BLmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BLmotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-
-
     }
     @Override
     public void loop()
