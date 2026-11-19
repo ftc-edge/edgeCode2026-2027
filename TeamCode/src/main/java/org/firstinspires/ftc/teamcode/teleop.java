@@ -25,7 +25,6 @@ public class teleop extends OpMode {
     public static float[] rightGoalPos = new float[]{0, 0};
     public static float[] targetGoalPos;
 
-
     float isIntaking = 1;
     float reverseFactor = 1;
     String warningString = "";
@@ -38,7 +37,6 @@ public class teleop extends OpMode {
     DcMotor BLmotor;
 
     Servo gate;
-
 
     float targetSpeed = 1f;
     final float targetIncrement = 0.005f;
