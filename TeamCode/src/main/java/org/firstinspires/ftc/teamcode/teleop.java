@@ -24,10 +24,7 @@ public class teleop extends OpMode {
     public static float[] leftGoalPos = new float[]{0, 0};
     public static float[] rightGoalPos = new float[]{0, 0};
     public static float[] targetGoalPos;
-    ColorSensor color;
-    ColorSensor color2;
-    ColorSensor color3;
-    ColorSensor color4;
+
 
     float isIntaking = 1;
     float reverseFactor = 1;
@@ -41,7 +38,7 @@ public class teleop extends OpMode {
     DcMotor BLmotor;
 
     Servo gate;
-    Servo turret;
+
 
     float targetSpeed = 1f;
     final float targetIncrement = 0.005f;
@@ -92,10 +89,6 @@ public class teleop extends OpMode {
 
         gate = hardwareMap.get(Servo.class, "gate");
 
-        color = hardwareMap.get(ColorSensor.class, "color");
-        color2 = hardwareMap.get(ColorSensor.class, "color2");
-        color3 = hardwareMap.get(ColorSensor.class, "color3");
-        color4 = hardwareMap.get(ColorSensor.class, "color4");
 
         imu = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
 
@@ -108,11 +101,7 @@ public class teleop extends OpMode {
     @Override
     public void loop() {
         toggleCheck();
-        if(color.red() > 100 || color2.red() > 100 || color3.red() > 100 || color4.red() > 100){
-            intake.setPower(0);
-        }else{
             intake.setPower(isIntaking * reverseFactor);
-        }
         move();
         imu.update();
         turretSpin();
@@ -137,7 +126,6 @@ public class teleop extends OpMode {
         telemetry.addLine(warningString);
         telemetry.addLine(String.valueOf(flywheel.getPower()));
 
-        telemetry.addLine(color.red() + ", " + color.green() + ", " + color.blue());
         telemetry.update();
 
         prevGamepad1.copy(gamepad1);
@@ -206,10 +194,10 @@ public class teleop extends OpMode {
 
         double angleOffset = Math.tan(xDif/yDif) * Math.pow((Math.pow(xDif, 2) + Math.pow(yDif, 2)), 0.5) - imu.getHeading(AngleUnit.DEGREES);
 
-        double turretSet = turret.getPosition() + (angleOffset/360);
-        if(turretSet > 1){
-            turretSet--;
-        }
-        turret.setPosition(turretSet);
+//        double turretSet = turret.getPosition() + (angleOffset/360);
+//        if(turretSet > 1){
+//            turretSet--;
+//        }
+//        turret.setPosition(turretSet);
     }
 }
